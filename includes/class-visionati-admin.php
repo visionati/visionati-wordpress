@@ -364,6 +364,8 @@ class Visionati_Admin {
 				'stop'            => __( 'Stop', 'visionati' ),
 				'resume'          => __( 'Resume', 'visionati' ),
 				'selectFields'    => __( 'Select at least one field to generate.', 'visionati' ),
+				'selectStatuses'  => __( 'Select at least one product status.', 'visionati' ),
+				'wooStats'        => __( '%1$d of %2$d products with images are missing descriptions.', 'visionati' ),
 				'confirmBulk'     => __( 'Process %d images?', 'visionati' ),
 				'confirmBulkOverwrite' => __( 'Process %d images? Overwrite is enabled — existing content will be replaced.', 'visionati' ),
 				'confirmWooBulk'  => __( 'Process %d products?', 'visionati' ),

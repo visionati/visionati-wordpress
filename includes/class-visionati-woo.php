@@ -56,6 +56,7 @@ class Visionati_Woo {
 		add_action( 'wp_ajax_visionati_woo_apply', array( $this, 'ajax_apply_descriptions' ) );
 		add_action( 'wp_ajax_visionati_woo_bulk_generate', array( $this, 'ajax_bulk_generate_single' ) );
 		add_action( 'wp_ajax_visionati_woo_get_products', array( $this, 'ajax_get_products' ) );
+		add_action( 'wp_ajax_visionati_woo_get_stats', array( $this, 'ajax_get_stats' ) );
 		add_filter( 'bulk_actions-edit-product', array( $this, 'register_bulk_action' ) );
 		add_filter( 'handle_bulk_actions-edit-product', array( $this, 'handle_bulk_action' ), 10, 3 );
 		add_action( 'admin_notices', array( $this, 'bulk_action_notice' ) );
@@ -371,12 +372,43 @@ class Visionati_Woo {
 		}
 		$overwrite_desc = in_array( 'description', $overwrite_fields, true );
 
-		$ids = $this->query_product_ids( $overwrite_desc );
+		$valid_statuses = array( 'publish', 'draft', 'pending', 'private' );
+		$statuses       = isset( $_POST['statuses'] ) ? array_map( 'sanitize_key', (array) $_POST['statuses'] ) : $valid_statuses;
+		$statuses       = array_intersect( $statuses, $valid_statuses );
+
+		if ( empty( $statuses ) ) {
+			$statuses = $valid_statuses;
+		}
+
+		$ids = $this->query_product_ids( $overwrite_desc, $statuses );
 
 		Visionati_API::send_json_success( array(
 			'ids'   => $ids,
 			'total' => count( $ids ),
 		) );
+	}
+
+	/**
+	 * AJAX handler: return product stats filtered by status.
+	 */
+	public function ajax_get_stats() {
+		check_ajax_referer( 'visionati_nonce', 'nonce' );
+
+		if ( ! current_user_can( 'edit_products' ) ) {
+			Visionati_API::send_json_error( array( 'message' => __( 'Permission denied.', 'visionati' ) ) );
+		}
+
+		$valid_statuses = array( 'publish', 'draft', 'pending', 'private' );
+		$statuses       = isset( $_POST['statuses'] ) ? array_map( 'sanitize_key', (array) $_POST['statuses'] ) : $valid_statuses;
+		$statuses       = array_intersect( $statuses, $valid_statuses );
+
+		if ( empty( $statuses ) ) {
+			$statuses = $valid_statuses;
+		}
+
+		$counts = $this->count_product_stats( $statuses );
+
+		Visionati_API::send_json_success( $counts );
 	}
 
 	/**
@@ -389,32 +421,44 @@ class Visionati_Woo {
 	 * @param bool $return_all Whether to return all products regardless of existing content.
 	 * @return array Array of product IDs.
 	 */
-	private function query_product_ids( $return_all = false ) {
+	private function query_product_ids( $return_all = false, $statuses = array() ) {
 		global $wpdb;
+
+		if ( empty( $statuses ) ) {
+			$statuses = array( 'publish', 'draft', 'pending', 'private' );
+		}
+
+		$status_placeholders = implode( ', ', array_fill( 0, count( $statuses ), '%s' ) );
 
 		if ( $return_all ) {
 			// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 			$ids = $wpdb->get_col(
-				"SELECT p.ID
-				FROM {$wpdb->posts} p
-				INNER JOIN {$wpdb->postmeta} pm
-					ON p.ID = pm.post_id AND pm.meta_key = '_thumbnail_id'
-				WHERE p.post_type = 'product'
-					AND p.post_status NOT IN ('trash', 'auto-draft')
-				ORDER BY p.ID ASC"
+				$wpdb->prepare(
+					"SELECT p.ID
+					FROM {$wpdb->posts} p
+					INNER JOIN {$wpdb->postmeta} pm
+						ON p.ID = pm.post_id AND pm.meta_key = '_thumbnail_id'
+					WHERE p.post_type = 'product'
+						AND p.post_status IN ($status_placeholders)
+					ORDER BY p.ID ASC",
+					...$statuses
+				)
 			);
 			// phpcs:enable
 		} else {
 			// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 			$ids = $wpdb->get_col(
-				"SELECT p.ID
-				FROM {$wpdb->posts} p
-				INNER JOIN {$wpdb->postmeta} pm
-					ON p.ID = pm.post_id AND pm.meta_key = '_thumbnail_id'
-				WHERE p.post_type = 'product'
-					AND p.post_status NOT IN ('trash', 'auto-draft')
-					AND (p.post_excerpt IS NULL OR p.post_excerpt = '' OR p.post_content IS NULL OR p.post_content = '')
-				ORDER BY p.ID ASC"
+				$wpdb->prepare(
+					"SELECT p.ID
+					FROM {$wpdb->posts} p
+					INNER JOIN {$wpdb->postmeta} pm
+						ON p.ID = pm.post_id AND pm.meta_key = '_thumbnail_id'
+					WHERE p.post_type = 'product'
+						AND p.post_status IN ($status_placeholders)
+						AND (p.post_excerpt IS NULL OR p.post_excerpt = '' OR p.post_content IS NULL OR p.post_content = '')
+					ORDER BY p.ID ASC",
+					...$statuses
+				)
 			);
 			// phpcs:enable
 		}
@@ -466,7 +510,7 @@ class Visionati_Woo {
 				</div>
 			<?php else : ?>
 				<div class="visionati-bulk-stats">
-					<p>
+					<p id="visionati-woo-bulk-stats">
 						<?php
 						printf(
 							/* translators: 1: number of products missing descriptions, 2: total products with images */
@@ -479,12 +523,34 @@ class Visionati_Woo {
 				</div>
 
 				<div class="visionati-bulk-controls">
-					<button type="button" class="button button-primary" id="visionati-woo-bulk-start">
-						<?php esc_html_e( 'Start', 'visionati' ); ?>
-					</button>
-					<button type="button" class="button" id="visionati-woo-bulk-stop" disabled>
-						<?php esc_html_e( 'Stop', 'visionati' ); ?>
-					</button>
+					<fieldset class="visionati-bulk-fields">
+						<legend class="screen-reader-text"><?php esc_html_e( 'Product statuses to include', 'visionati' ); ?></legend>
+						<label style="display:inline-block !important;margin-right:16px !important">
+							<input type="checkbox" name="visionati_woo_bulk_status" value="publish" checked />
+							<?php esc_html_e( 'Published', 'visionati' ); ?>
+						</label>
+						<label style="display:inline-block !important;margin-right:16px !important">
+							<input type="checkbox" name="visionati_woo_bulk_status" value="draft" checked />
+							<?php esc_html_e( 'Draft', 'visionati' ); ?>
+						</label>
+						<label style="display:inline-block !important;margin-right:16px !important">
+							<input type="checkbox" name="visionati_woo_bulk_status" value="pending" checked />
+							<?php esc_html_e( 'Pending', 'visionati' ); ?>
+						</label>
+						<label style="display:inline-block !important;margin-right:16px !important">
+							<input type="checkbox" name="visionati_woo_bulk_status" value="private" checked />
+							<?php esc_html_e( 'Private', 'visionati' ); ?>
+						</label>
+					</fieldset>
+
+					<div class="visionati-bulk-actions">
+						<button type="button" class="button button-primary" id="visionati-woo-bulk-start">
+							<?php esc_html_e( 'Start', 'visionati' ); ?>
+						</button>
+						<button type="button" class="button" id="visionati-woo-bulk-stop" disabled>
+							<?php esc_html_e( 'Stop', 'visionati' ); ?>
+						</button>
+					</div>
 				</div>
 
 				<div class="visionati-woo-bulk-progress" style="display: none;">
@@ -636,21 +702,31 @@ class Visionati_Woo {
 	 * and checks post_excerpt/post_content directly. One query, no iteration,
 	 * no wc_get_product() calls.
 	 *
+	 * @param array $statuses Optional post statuses to filter by.
 	 * @return array Associative array with keys: total, missing.
 	 */
-	private function count_product_stats() {
+	private function count_product_stats( $statuses = array() ) {
 		global $wpdb;
+
+		if ( empty( $statuses ) ) {
+			$statuses = array( 'publish', 'draft', 'pending', 'private' );
+		}
+
+		$status_placeholders = implode( ', ', array_fill( 0, count( $statuses ), '%s' ) );
 
 		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		$row = $wpdb->get_row(
-			"SELECT
-				COUNT(*) AS total,
-				SUM( CASE WHEN p.post_excerpt IS NULL OR p.post_excerpt = '' OR p.post_content IS NULL OR p.post_content = '' THEN 1 ELSE 0 END ) AS missing
-			FROM {$wpdb->posts} p
-			INNER JOIN {$wpdb->postmeta} pm
-				ON p.ID = pm.post_id AND pm.meta_key = '_thumbnail_id'
-			WHERE p.post_type = 'product'
-				AND p.post_status NOT IN ('trash', 'auto-draft')"
+			$wpdb->prepare(
+				"SELECT
+					COUNT(*) AS total,
+					SUM( CASE WHEN p.post_excerpt IS NULL OR p.post_excerpt = '' OR p.post_content IS NULL OR p.post_content = '' THEN 1 ELSE 0 END ) AS missing
+				FROM {$wpdb->posts} p
+				INNER JOIN {$wpdb->postmeta} pm
+					ON p.ID = pm.post_id AND pm.meta_key = '_thumbnail_id'
+				WHERE p.post_type = 'product'
+					AND p.post_status IN ($status_placeholders)",
+				...$statuses
+			)
 		);
 		// phpcs:enable
 

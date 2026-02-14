@@ -2,7 +2,7 @@
 Contributors: visionati
 Tags: alt text, image alt, ai, accessibility, seo, woocommerce, product descriptions
 Requires at least: 6.0
-Tested up to: 6.7
+Tested up to: 6.9
 Requires PHP: 7.4
 Stable tag: 1.0.0
 License: GPLv2 or later
@@ -99,10 +99,13 @@ Over 160 languages. Set your preferred language in the plugin settings and all A
 
 == Screenshots ==
 
-1. Settings page with API key, model selection, and role configuration
-2. Media Library with per-field generation buttons (Alt Text, Caption, Description)
-3. Bulk Generate page with progress bar
-4. WooCommerce product meta box for description generation
+1. Settings page with API key, model selection, and context settings
+2. Media Library with generated alt text, caption, and description previews
+3. Bulk Generate page with progress bar and results log
+4. WooCommerce product edit screen with generated short and long descriptions
+5. Bulk Generate mobile view
+6. WooCommerce Bulk Descriptions page with status filters and progress bar
+7. WooCommerce Bulk Descriptions mobile view
 
 == Changelog ==
 
@@ -122,7 +125,7 @@ Over 160 languages. Set your preferred language in the plugin settings and all A
 * WooCommerce product description generation (short and long) with product context
 * WooCommerce per-field apply: accept short and long descriptions independently or both at once
 * WooCommerce bulk action for product descriptions; also generates alt text for featured images if missing
-* WooCommerce bulk includes all product statuses (publish, draft, pending, private)
+* WooCommerce bulk status filter: choose which product statuses to include (Published, Draft, Pending, Private) with live-updating counts
 * 12 context-aware roles: Alt Text, Artist, Caption, Comedian, Critic, Ecommerce, General, Inspector, Promoter, Prompt, Realtor, Tweet
 * Custom prompt support with WooCommerce placeholders ({product_name}, {categories}, {price})
 * 160+ language support

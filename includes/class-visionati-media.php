@@ -57,9 +57,9 @@ class Visionati_Media {
 
 		$button_html = sprintf(
 			'<div class="visionati-media-actions">' .
-			'<button type="button" class="button visionati-generate-btn" data-attachment-id="%d" data-context="alt_text">%s</button>' .
-			'<button type="button" class="button visionati-generate-btn" data-attachment-id="%d" data-context="caption">%s</button>' .
-			'<button type="button" class="button visionati-generate-btn" data-attachment-id="%d" data-context="description">%s</button>' .
+			'<button type="button" class="button" data-attachment-id="%d" data-context="alt_text">%s</button>' .
+			'<button type="button" class="button" data-attachment-id="%d" data-context="caption">%s</button>' .
+			'<button type="button" class="button" data-attachment-id="%d" data-context="description">%s</button>' .
 			'</div>' .
 			'<div class="visionati-media-previews" data-attachment-id="%d"></div>',
 			$attachment_id,

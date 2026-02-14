@@ -106,7 +106,6 @@
  * Standard WP .button/.button-primary are left untouched.
  * ------------------------------------------------------------------------- */
 
-.visionati-generate-btn,
 .visionati-woo-generate-btn,
 .visionati-woo-apply-btn {
 	background: #fb7300;
@@ -115,7 +114,6 @@
 	transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 
-.visionati-generate-btn:hover,
 .visionati-woo-generate-btn:hover,
 .visionati-woo-apply-btn:hover {
 	background: #e4784e;
@@ -123,14 +121,12 @@
 	color: #fff;
 }
 
-.visionati-generate-btn:focus-visible,
 .visionati-woo-generate-btn:focus-visible,
 .visionati-woo-apply-btn:focus-visible {
 	outline: 2px solid #fb7300;
 	outline-offset: 2px;
 }
 
-.visionati-generate-btn.is-loading,
 .visionati-woo-generate-btn.is-loading {
 	pointer-events: none;
 	opacity: 0.7;
@@ -138,7 +134,6 @@
 
 
 
-.visionati-generate-btn .spinner,
 .visionati-woo-generate-btn .spinner {
 	float: none;
 	margin: 0 0 0 4px;
@@ -148,6 +143,45 @@
 /* -------------------------------------------------------------------------
  * Media Library Button
  * ------------------------------------------------------------------------- */
+
+.compat-field-visionati {
+	display: block;
+}
+
+.compat-field-visionati th.label {
+	display: block;
+	float: none;
+	width: 100%;
+	text-align: left;
+	padding: 0;
+	margin: 0 0 4px;
+}
+
+.compat-field-visionati th.label label {
+	font-size: 13px;
+	font-weight: 600;
+	color: #1d2327;
+	display: inline;
+}
+
+.compat-field-visionati th.label .alignleft {
+	float: none;
+	text-align: left;
+}
+
+.compat-item .compat-field-visionati label span {
+	text-align: left;
+}
+
+.compat-field-visionati th.label br.clear {
+	display: none;
+}
+
+.compat-field-visionati td.field {
+	width: 100%;
+	float: none;
+	padding: 0;
+}
 
 .visionati-media-actions {
 	display: flex;
@@ -202,6 +236,7 @@
 	display: flex;
 	align-items: center;
 	gap: 6px;
+	margin-top: 8px;
 }
 
 .visionati-media-preview-status {
@@ -483,6 +518,7 @@
 	line-height: 1.5;
 	max-height: 150px;
 	overflow-y: auto;
+	margin-bottom: 8px;
 }
 
 .visionati-woo-apply-actions {

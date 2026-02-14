@@ -174,7 +174,7 @@
 
 		// Use event delegation for buttons inside modals and list views.
 		// Generate button: calls the API and shows a preview (no saving).
-		$(document).on('click', '.visionati-generate-btn', function (e) {
+		$(document).on('click', '.visionati-media-actions .button', function (e) {
 			e.preventDefault();
 
 			var $button = $(this);
@@ -1057,6 +1057,43 @@
 		errors: 0,
 	};
 
+	function getSelectedWooStatuses() {
+		var statuses = [];
+		$('input[name="visionati_woo_bulk_status"]:checked').each(function () {
+			statuses.push($(this).val());
+		});
+		return statuses;
+	}
+
+	function refreshWooStats() {
+		var statuses = getSelectedWooStatuses();
+		var $stats = $('#visionati-woo-bulk-stats');
+
+		if (!$stats.length) {
+			return;
+		}
+
+		if (!statuses.length) {
+			$stats.text(i18n.selectStatuses || 'Select at least one product status.');
+			return;
+		}
+
+		$.post(admin.ajaxUrl, {
+			action: 'visionati_woo_get_stats',
+			nonce: admin.nonce,
+			'statuses[]': statuses,
+		}).done(function (response) {
+			logServerTrace(response.data);
+			if (response.success) {
+				var d = response.data;
+				var msg = (i18n.wooStats || '%1$d of %2$d products with images are missing descriptions.')
+					.replace('%1$d', d.missing)
+					.replace('%2$d', d.total);
+				$stats.text(msg);
+			}
+		});
+	}
+
 	function initWooBulkGenerate() {
 		var $startBtn = $('#visionati-woo-bulk-start');
 		var $stopBtn = $('#visionati-woo-bulk-stop');
@@ -1065,8 +1102,18 @@
 			return;
 		}
 
+		// Refresh stats when status checkboxes change.
+		$(document).on('change', 'input[name="visionati_woo_bulk_status"]', refreshWooStats);
+
 		$startBtn.on('click', function () {
 			if (wooBulkState.running) {
+				return;
+			}
+
+			var statuses = getSelectedWooStatuses();
+
+			if (!statuses.length) {
+				showNotice(i18n.selectStatuses || 'Select at least one product status.', 'warning');
 				return;
 			}
 
@@ -1076,6 +1123,7 @@
 			$.post(admin.ajaxUrl, {
 				action: 'visionati_woo_get_products',
 				nonce: admin.nonce,
+				'statuses[]': statuses,
 			})
 				.done(function (response) {
 					logServerTrace(response.data);
