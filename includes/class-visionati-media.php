@@ -163,6 +163,10 @@ class Visionati_Media {
 			Visionati_API::send_json_error( array( 'message' => __( 'No attachment ID provided.', 'visionati' ) ) );
 		}
 
+		if ( ! get_post( $attachment_id ) ) {
+			Visionati_API::send_json_error( array( 'message' => __( 'Attachment not found.', 'visionati' ) ) );
+		}
+
 		$valid_contexts = array( 'alt_text', 'caption', 'description' );
 		$context        = isset( $_POST['context'] ) ? sanitize_key( $_POST['context'] ) : '';
 

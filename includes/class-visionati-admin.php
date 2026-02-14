@@ -360,6 +360,7 @@ class Visionati_Admin {
 				'skipped'         => __( 'Skipped', 'visionati' ),
 				'failed'          => __( 'Failed', 'visionati' ),
 				'noCredits'       => __( 'Out of credits. Add more at api.visionati.com to continue.', 'visionati' ),
+				'creditsRemaining' => __( '%d credits remaining', 'visionati' ),
 				'start'           => __( 'Start', 'visionati' ),
 				'stop'            => __( 'Stop', 'visionati' ),
 				'resume'          => __( 'Resume', 'visionati' ),

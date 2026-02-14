@@ -1,6 +1,6 @@
 === Visionati ===
 Contributors: visionati
-Tags: alt text, image alt, ai, accessibility, seo, woocommerce, product descriptions
+Tags: alt text, ai, accessibility, woocommerce, product descriptions
 Requires at least: 6.0
 Tested up to: 6.9
 Requires PHP: 7.4

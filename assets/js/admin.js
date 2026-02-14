@@ -90,7 +90,7 @@
 		if (typeof credits === 'undefined' || credits === null) {
 			return;
 		}
-		var text = credits + ' credits remaining';
+		var text = (i18n.creditsRemaining || '%d credits remaining').replace('%d', credits);
 		$('.visionati-credits-remaining').text(text).show();
 	}
 
@@ -211,21 +211,21 @@
 						var desc = response.data.description || '';
 						var creditsMsg = '';
 						if (response.data.credits !== undefined && response.data.credits !== null) {
-							creditsMsg = ' (' + response.data.credits + ' credits remaining)';
+							creditsMsg = ' (' + (i18n.creditsRemaining || '%d credits remaining').replace('%d', response.data.credits) + ')';
 						}
 						addMediaPreview($previews, attachmentId, context, desc, creditsMsg);
 					} else {
-						var $error = $('<div class="visionati-media-preview" data-context="' + context + '">' +
-							'<span class="visionati-media-preview-status error">' + contextLabel + ': ' +
-							(response.data.message || 'Error') + '</span></div>');
+						var $error = $('<div class="visionati-media-preview">').attr('data-context', context).append(
+							$('<span class="visionati-media-preview-status error">').text(contextLabel + ': ' + (response.data.message || 'Error'))
+						);
 						$previews.append($error);
 					}
 				})
 				.fail(function (jqXHR, textStatus, errorThrown) {
 					log('analyze: AJAX failed', { context: context, status: textStatus, error: errorThrown });
-					var $error = $('<div class="visionati-media-preview" data-context="' + context + '">' +
-						'<span class="visionati-media-preview-status error">' + contextLabel + ': ' +
-						(i18n.error || 'Error') + '</span></div>');
+					var $error = $('<div class="visionati-media-preview">').attr('data-context', context).append(
+						$('<span class="visionati-media-preview-status error">').text(contextLabel + ': ' + (i18n.error || 'Error'))
+					);
 					$previews.append($error);
 				})
 				.always(function () {
@@ -772,7 +772,7 @@
 					if (response.success) {
 						var genMsg = i18n.generated || 'Generated.';
 						if (response.data.credits !== undefined && response.data.credits !== null) {
-							genMsg += ' (' + response.data.credits + ' credits remaining)';
+							genMsg += ' (' + (i18n.creditsRemaining || '%d credits remaining').replace('%d', response.data.credits) + ')';
 						}
 						$status.text(genMsg).removeClass('loading').addClass('success');
 						log('woo generate: preview data', {
