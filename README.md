@@ -1,5 +1,7 @@
 # Visionati
 
+![Visionati for WordPress](.wordpress-org/banner-1544x500.png)
+
 AI-powered image alt text, captions, and product descriptions for WordPress and WooCommerce.
 
 Powered by the [Visionati API](https://api.visionati.com). Choose from AI models by Anthropic, Google, OpenAI, xAI, and others to generate descriptions tuned to your needs.
