@@ -2,14 +2,14 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Visionati 1.0.0\n"
+"Project-Id-Version: Visionati 1.0.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/visionati-wordpress\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-02-13T05:45:37+00:00\n"
+"POT-Creation-Date: 2026-02-18T03:08:19+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: visionati\n"
@@ -18,7 +18,7 @@ msgstr ""
 #. Author of the plugin
 #: visionati.php
 #: includes/class-visionati-admin.php:40
-#: includes/class-visionati-woo.php:53
+#: includes/class-visionati-woo.php:76
 msgid "Visionati"
 msgstr ""
 
@@ -62,22 +62,22 @@ msgid "Context Settings"
 msgstr ""
 
 #: includes/class-visionati-admin.php:123
-#: includes/class-visionati-admin.php:340
-#: includes/class-visionati-admin.php:608
-#: includes/class-visionati-admin.php:640
-#: includes/class-visionati-api.php:723
-#: includes/class-visionati-media.php:65
-#: includes/class-visionati-media.php:629
+#: includes/class-visionati-admin.php:375
+#: includes/class-visionati-admin.php:650
+#: includes/class-visionati-admin.php:682
+#: includes/class-visionati-api.php:842
+#: includes/class-visionati-media.php:66
+#: includes/class-visionati-media.php:714
 msgid "Alt Text"
 msgstr ""
 
 #: includes/class-visionati-admin.php:127
-#: includes/class-visionati-admin.php:341
-#: includes/class-visionati-admin.php:609
-#: includes/class-visionati-admin.php:641
-#: includes/class-visionati-api.php:725
-#: includes/class-visionati-media.php:67
-#: includes/class-visionati-media.php:633
+#: includes/class-visionati-admin.php:376
+#: includes/class-visionati-admin.php:651
+#: includes/class-visionati-admin.php:683
+#: includes/class-visionati-api.php:844
+#: includes/class-visionati-media.php:68
+#: includes/class-visionati-media.php:718
 msgid "Caption"
 msgstr ""
 
@@ -125,368 +125,437 @@ msgstr ""
 msgid "WooCommerce Product Context"
 msgstr ""
 
-#: includes/class-visionati-admin.php:316
+#: includes/class-visionati-admin.php:266
+msgid "Debug"
+msgstr ""
+
+#: includes/class-visionati-admin.php:279
+msgid "Debug Mode"
+msgstr ""
+
+#: includes/class-visionati-admin.php:345
 msgid "Verifying..."
 msgstr ""
 
-#: includes/class-visionati-admin.php:317
-#: includes/class-visionati-admin.php:797
+#: includes/class-visionati-admin.php:346
+#: includes/class-visionati-admin.php:852
 msgid "Connected."
 msgstr ""
 
-#: includes/class-visionati-admin.php:318
+#: includes/class-visionati-admin.php:347
 msgid "Connection failed."
 msgstr ""
 
-#: includes/class-visionati-admin.php:319
+#: includes/class-visionati-admin.php:348
 msgid "Generating..."
 msgstr ""
 
-#: includes/class-visionati-admin.php:320
+#: includes/class-visionati-admin.php:349
 msgid "Generated."
 msgstr ""
 
-#: includes/class-visionati-admin.php:321
+#: includes/class-visionati-admin.php:350
 msgid "Error"
 msgstr ""
 
-#: includes/class-visionati-admin.php:322
+#: includes/class-visionati-admin.php:351
 msgid "Processing..."
 msgstr ""
 
-#: includes/class-visionati-admin.php:323
+#: includes/class-visionati-admin.php:352
 msgid "Complete."
 msgstr ""
 
-#: includes/class-visionati-admin.php:324
+#: includes/class-visionati-admin.php:353
+#: includes/class-visionati-woo.php:113
+#: includes/class-visionati-woo.php:121
+msgid "Apply"
+msgstr ""
+
+#: includes/class-visionati-admin.php:354
+#: includes/class-visionati-woo.php:130
+msgid "Discard"
+msgstr ""
+
+#: includes/class-visionati-admin.php:355
+msgid "Applied."
+msgstr ""
+
+#: includes/class-visionati-admin.php:356
 msgid "Stopped."
 msgstr ""
 
-#: includes/class-visionati-admin.php:325
+#: includes/class-visionati-admin.php:357
 msgid "No images found to process."
 msgstr ""
 
-#: includes/class-visionati-admin.php:326
+#: includes/class-visionati-admin.php:358
 msgid "No products found to process."
 msgstr ""
 
-#: includes/class-visionati-admin.php:327
-#: includes/class-visionati-media.php:657
-#: includes/class-visionati-woo.php:455
+#: includes/class-visionati-admin.php:359
+#: includes/class-visionati-media.php:742
+#: includes/class-visionati-woo.php:562
 msgid "of"
 msgstr ""
 
-#: includes/class-visionati-admin.php:328
+#: includes/class-visionati-admin.php:360
 msgid "Skipped"
 msgstr ""
 
-#: includes/class-visionati-admin.php:329
+#: includes/class-visionati-admin.php:361
 msgid "Failed"
 msgstr ""
 
-#: includes/class-visionati-admin.php:330
+#: includes/class-visionati-admin.php:362
 msgid "Out of credits. Add more at api.visionati.com to continue."
 msgstr ""
 
-#: includes/class-visionati-admin.php:331
-#: includes/class-visionati-media.php:643
-#: includes/class-visionati-woo.php:442
+#: includes/class-visionati-admin.php:363
+#, php-format
+msgid "%d credits remaining"
+msgstr ""
+
+#: includes/class-visionati-admin.php:364
+#: includes/class-visionati-media.php:728
+#: includes/class-visionati-woo.php:548
 msgid "Start"
 msgstr ""
 
-#: includes/class-visionati-admin.php:332
-#: includes/class-visionati-media.php:646
-#: includes/class-visionati-woo.php:445
+#: includes/class-visionati-admin.php:365
+#: includes/class-visionati-media.php:731
+#: includes/class-visionati-woo.php:551
 msgid "Stop"
 msgstr ""
 
-#: includes/class-visionati-admin.php:333
+#: includes/class-visionati-admin.php:366
 msgid "Resume"
 msgstr ""
 
-#: includes/class-visionati-admin.php:334
+#: includes/class-visionati-admin.php:367
 msgid "Select at least one field to generate."
 msgstr ""
 
-#: includes/class-visionati-admin.php:335
+#: includes/class-visionati-admin.php:368
+msgid "Select at least one product status."
+msgstr ""
+
+#. translators: 1: number of products missing descriptions, 2: total products with images
+#: includes/class-visionati-admin.php:369
+#: includes/class-visionati-woo.php:517
+#, php-format
+msgid "%1$d of %2$d products with images are missing descriptions."
+msgstr ""
+
+#: includes/class-visionati-admin.php:370
 #, php-format
 msgid "Process %d images?"
 msgstr ""
 
-#: includes/class-visionati-admin.php:336
+#: includes/class-visionati-admin.php:371
 #, php-format
 msgid "Process %d images? Overwrite is enabled — existing content will be replaced."
 msgstr ""
 
-#: includes/class-visionati-admin.php:337
+#: includes/class-visionati-admin.php:372
 #, php-format
 msgid "Process %d products?"
 msgstr ""
 
-#: includes/class-visionati-admin.php:338
+#: includes/class-visionati-admin.php:373
 #, php-format
 msgid "Process %d products? Overwrite is enabled — existing descriptions will be replaced."
 msgstr ""
 
-#: includes/class-visionati-admin.php:342
-#: includes/class-visionati-admin.php:610
-#: includes/class-visionati-admin.php:642
-#: includes/class-visionati-media.php:69
-#: includes/class-visionati-media.php:637
+#: includes/class-visionati-admin.php:377
+#: includes/class-visionati-admin.php:652
+#: includes/class-visionati-admin.php:684
+#: includes/class-visionati-media.php:70
+#: includes/class-visionati-media.php:722
 msgid "Description"
 msgstr ""
 
-#: includes/class-visionati-admin.php:409
+#: includes/class-visionati-admin.php:444
 msgid "Enter your Visionati API key."
 msgstr ""
 
-#: includes/class-visionati-admin.php:411
+#: includes/class-visionati-admin.php:446
 msgid "Sign up for an account."
 msgstr ""
 
-#: includes/class-visionati-admin.php:419
+#: includes/class-visionati-admin.php:454
 msgid "AI model, language, and role used for analyses."
 msgstr ""
 
-#: includes/class-visionati-admin.php:426
+#: includes/class-visionati-admin.php:461
 msgid "Override the default role and AI model for each context."
 msgstr ""
 
-#: includes/class-visionati-admin.php:433
+#: includes/class-visionati-admin.php:468
 msgid "Optional custom prompts override the role for each context. Leave blank to use the selected role."
 msgstr ""
 
-#: includes/class-visionati-admin.php:440
+#: includes/class-visionati-admin.php:475
 msgid "Control automatic generation behavior."
 msgstr ""
 
-#: includes/class-visionati-admin.php:462
+#: includes/class-visionati-admin.php:482
+msgid "Diagnostic tools for troubleshooting."
+msgstr ""
+
+#: includes/class-visionati-admin.php:504
 msgid "Verify API key"
 msgstr ""
 
-#: includes/class-visionati-admin.php:463
+#: includes/class-visionati-admin.php:505
 msgid "Verify"
 msgstr ""
 
-#: includes/class-visionati-admin.php:537
+#: includes/class-visionati-admin.php:579
 msgid "Role:"
 msgstr ""
 
-#: includes/class-visionati-admin.php:554
+#: includes/class-visionati-admin.php:596
 msgid "Model:"
 msgstr ""
 
-#: includes/class-visionati-admin.php:560
+#: includes/class-visionati-admin.php:602
 msgid "Default"
 msgstr ""
 
-#: includes/class-visionati-admin.php:586
+#: includes/class-visionati-admin.php:628
 msgid "Leave blank to use the selected role."
 msgstr ""
 
-#: includes/class-visionati-admin.php:592
+#: includes/class-visionati-admin.php:634
 msgid "Available placeholders: {product_name}, {categories}, {price}"
 msgstr ""
 
-#: includes/class-visionati-admin.php:625
+#: includes/class-visionati-admin.php:667
 msgid "Automatically generate selected fields when images are uploaded."
 msgstr ""
 
-#: includes/class-visionati-admin.php:657
+#: includes/class-visionati-admin.php:699
 msgid "Allow overwriting existing content for selected fields during bulk and auto generation."
 msgstr ""
 
-#: includes/class-visionati-admin.php:672
+#: includes/class-visionati-admin.php:712
+msgid "Log debug information to the browser console. Open your browser developer tools (F12) to view the trace."
+msgstr ""
+
+#: includes/class-visionati-admin.php:727
 msgid "Include product name, categories, and attributes in WooCommerce prompts for better descriptions."
 msgstr ""
 
-#: includes/class-visionati-admin.php:781
-#: includes/class-visionati-media.php:88
-#: includes/class-visionati-media.php:122
-#: includes/class-visionati-media.php:214
-#: includes/class-visionati-woo.php:115
-#: includes/class-visionati-woo.php:153
-#: includes/class-visionati-woo.php:199
-#: includes/class-visionati-woo.php:324
+#: includes/class-visionati-admin.php:836
+#: includes/class-visionati-media.php:93
+#: includes/class-visionati-media.php:157
+#: includes/class-visionati-media.php:207
+#: includes/class-visionati-media.php:299
+#: includes/class-visionati-woo.php:146
+#: includes/class-visionati-woo.php:184
+#: includes/class-visionati-woo.php:241
+#: includes/class-visionati-woo.php:366
+#: includes/class-visionati-woo.php:398
 msgid "Permission denied."
 msgstr ""
 
-#: includes/class-visionati-admin.php:787
+#: includes/class-visionati-admin.php:842
 msgid "Please enter an API key."
 msgstr ""
 
-#: includes/class-visionati-api.php:83
-#: includes/class-visionati-api.php:157
-#: includes/class-visionati-media.php:602
-#: includes/class-visionati-woo.php:420
+#: includes/class-visionati-api.php:191
+#: includes/class-visionati-api.php:265
+#: includes/class-visionati-media.php:687
+#: includes/class-visionati-woo.php:505
 msgid "No API key configured."
 msgstr ""
 
 #. translators: %s: error message
-#: includes/class-visionati-api.php:107
+#: includes/class-visionati-api.php:215
 #, php-format
 msgid "Connection failed: %s"
 msgstr ""
 
-#: includes/class-visionati-api.php:119
+#: includes/class-visionati-api.php:227
 msgid "Invalid response from API."
 msgstr ""
 
-#: includes/class-visionati-api.php:232
+#: includes/class-visionati-api.php:340
 msgid "Unexpected API response format."
 msgstr ""
 
 #. translators: %s: error message
-#: includes/class-visionati-api.php:260
+#: includes/class-visionati-api.php:368
 #, php-format
 msgid "API request failed: %s"
 msgstr ""
 
-#: includes/class-visionati-api.php:273
+#: includes/class-visionati-api.php:381
 msgid "Invalid JSON response from API."
 msgstr ""
 
 #. translators: %d: HTTP status code
-#: includes/class-visionati-api.php:289
+#: includes/class-visionati-api.php:397
 #, php-format
 msgid "API returned HTTP %d."
 msgstr ""
 
-#: includes/class-visionati-api.php:348
-#: includes/class-visionati-api.php:458
+#: includes/class-visionati-api.php:456
+#: includes/class-visionati-api.php:571
 msgid "API returned invalid JSON."
 msgstr ""
 
-#: includes/class-visionati-api.php:354
-#: includes/class-visionati-api.php:463
+#: includes/class-visionati-api.php:462
+#: includes/class-visionati-api.php:576
 msgid "API returned invalid responses 5 times in a row. A proxy or firewall may be interfering."
 msgstr ""
 
 #. translators: %s: error details
-#: includes/class-visionati-api.php:388
-#: includes/class-visionati-api.php:496
+#: includes/class-visionati-api.php:487
+#: includes/class-visionati-api.php:604
 #, php-format
 msgid "Analysis returned no results: %s"
 msgstr ""
 
-#: includes/class-visionati-api.php:389
-#: includes/class-visionati-api.php:499
+#: includes/class-visionati-api.php:488
+#: includes/class-visionati-api.php:607
 msgid "Analysis returned no results."
 msgstr ""
 
+#: includes/class-visionati-api.php:503
+#: includes/class-visionati-api.php:619
+msgid "Unexpected API response during polling."
+msgstr ""
+
 #. translators: %s: last error detail or empty string
-#: includes/class-visionati-api.php:409
-#: includes/class-visionati-api.php:509
+#: includes/class-visionati-api.php:522
+#: includes/class-visionati-api.php:628
 #, php-format
 msgid "Analysis timed out. The image may be too large or the service is busy. Please try again.%s"
 msgstr ""
 
 #. translators: %d: attachment ID
-#: includes/class-visionati-api.php:529
+#: includes/class-visionati-api.php:648
 #, php-format
 msgid "Image file not found for attachment #%d."
 msgstr ""
 
 #. translators: %s: MIME type
-#: includes/class-visionati-api.php:541
+#: includes/class-visionati-api.php:660
 #, php-format
 msgid "Unsupported image format: %s. Supported formats: JPEG, PNG, GIF, WebP, BMP."
 msgstr ""
 
 #. translators: %s: file size in MB
-#: includes/class-visionati-api.php:553
+#: includes/class-visionati-api.php:672
 #, php-format
 msgid "Image file is too large (%sMB). Maximum size is 20MB."
 msgstr ""
 
 #. translators: %s: file name
-#: includes/class-visionati-api.php:586
+#: includes/class-visionati-api.php:705
 #, php-format
 msgid "Cannot read file: %s"
 msgstr ""
 
-#: includes/class-visionati-api.php:597
+#: includes/class-visionati-api.php:716
 msgid "Failed to read image file."
 msgstr ""
 
-#: includes/class-visionati-api.php:724
+#: includes/class-visionati-api.php:843
 msgid "Artist"
 msgstr ""
 
-#: includes/class-visionati-api.php:726
+#: includes/class-visionati-api.php:845
 msgid "Comedian"
 msgstr ""
 
-#: includes/class-visionati-api.php:727
+#: includes/class-visionati-api.php:846
 msgid "Critic"
 msgstr ""
 
-#: includes/class-visionati-api.php:728
+#: includes/class-visionati-api.php:847
 msgid "Ecommerce"
 msgstr ""
 
-#: includes/class-visionati-api.php:729
+#: includes/class-visionati-api.php:848
 msgid "General"
 msgstr ""
 
-#: includes/class-visionati-api.php:730
+#: includes/class-visionati-api.php:849
 msgid "Inspector"
 msgstr ""
 
-#: includes/class-visionati-api.php:731
+#: includes/class-visionati-api.php:850
 msgid "Promoter"
 msgstr ""
 
-#: includes/class-visionati-api.php:732
+#: includes/class-visionati-api.php:851
 msgid "Prompt"
 msgstr ""
 
-#: includes/class-visionati-api.php:733
+#: includes/class-visionati-api.php:852
 msgid "Realtor"
 msgstr ""
 
-#: includes/class-visionati-api.php:734
+#: includes/class-visionati-api.php:853
 msgid "Tweet"
 msgstr ""
 
-#: includes/class-visionati-media.php:94
-#: includes/class-visionati-media.php:128
+#: includes/class-visionati-media.php:99
+#: includes/class-visionati-media.php:163
+#: includes/class-visionati-media.php:213
 msgid "No attachment ID provided."
 msgstr ""
 
-#: includes/class-visionati-media.php:101
+#: includes/class-visionati-media.php:106
+#: includes/class-visionati-media.php:174
 msgid "Invalid context."
 msgstr ""
 
-#: includes/class-visionati-media.php:136
+#: includes/class-visionati-media.php:128
+#: includes/class-visionati-media.php:807
+msgid "No description returned from the API."
+msgstr ""
+
+#: includes/class-visionati-media.php:167
+msgid "Attachment not found."
+msgstr ""
+
+#: includes/class-visionati-media.php:180
+msgid "No description to apply."
+msgstr ""
+
+#: includes/class-visionati-media.php:221
 msgid "No fields selected."
 msgstr ""
 
-#: includes/class-visionati-media.php:182
+#: includes/class-visionati-media.php:267
 msgid "All selected fields already exist."
 msgstr ""
 
 #. translators: 1: file name, 2: error details
-#: includes/class-visionati-media.php:408
+#: includes/class-visionati-media.php:493
 #, php-format
 msgid "Visionati auto-generate failed for %1$s: %2$s"
 msgstr ""
 
-#: includes/class-visionati-media.php:476
-#: includes/class-visionati-media.php:597
+#: includes/class-visionati-media.php:561
+#: includes/class-visionati-media.php:682
 msgid "Visionati Bulk Generate"
 msgstr ""
 
-#: includes/class-visionati-media.php:477
+#: includes/class-visionati-media.php:562
 msgid "Bulk Generate"
 msgstr ""
 
-#: includes/class-visionati-media.php:493
+#: includes/class-visionati-media.php:578
 msgid "Generate with Visionati"
 msgstr ""
 
 #. translators: %d: number of images processed
-#: includes/class-visionati-media.php:556
+#: includes/class-visionati-media.php:641
 #, php-format
 msgid "%d image processed."
 msgid_plural "%d images processed."
@@ -495,8 +564,8 @@ msgstr[1] ""
 
 #. translators: %d: number of images skipped
 #. translators: %d: number of products skipped
-#: includes/class-visionati-media.php:563
-#: includes/class-visionati-woo.php:569
+#: includes/class-visionati-media.php:648
+#: includes/class-visionati-woo.php:676
 #, php-format
 msgid "%d skipped."
 msgid_plural "%d skipped."
@@ -504,140 +573,146 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %d: number of errors
-#: includes/class-visionati-media.php:570
-#: includes/class-visionati-woo.php:576
+#: includes/class-visionati-media.php:655
+#: includes/class-visionati-woo.php:683
 #, php-format
 msgid "%d error."
 msgid_plural "%d errors."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-visionati-media.php:604
-#: includes/class-visionati-woo.php:422
+#: includes/class-visionati-media.php:689
+#: includes/class-visionati-woo.php:507
 #: visionati.php:95
 msgid "Add your API key in Settings."
 msgstr ""
 
 #. translators: 1: images missing alt text, 2: missing captions, 3: missing descriptions, 4: total
-#: includes/class-visionati-media.php:614
+#: includes/class-visionati-media.php:699
 #, php-format
 msgid "%1$d missing alt text, %2$d missing captions, %3$d missing descriptions out of %4$d images."
 msgstr ""
 
-#: includes/class-visionati-media.php:626
+#: includes/class-visionati-media.php:711
 msgid "Fields to generate"
 msgstr ""
 
-#: includes/class-visionati-media.php:653
-#: includes/class-visionati-woo.php:451
+#: includes/class-visionati-media.php:738
+#: includes/class-visionati-woo.php:558
 msgid "Bulk generation progress"
 msgstr ""
 
-#: includes/class-visionati-media.php:663
-#: includes/class-visionati-woo.php:461
+#: includes/class-visionati-media.php:748
+#: includes/class-visionati-woo.php:568
 msgid "generated"
 msgstr ""
 
-#: includes/class-visionati-media.php:664
-#: includes/class-visionati-woo.php:462
+#: includes/class-visionati-media.php:749
+#: includes/class-visionati-woo.php:569
 msgid "skipped"
 msgstr ""
 
-#: includes/class-visionati-media.php:665
-#: includes/class-visionati-woo.php:463
+#: includes/class-visionati-media.php:750
+#: includes/class-visionati-woo.php:570
 msgid "errors"
 msgstr ""
 
-#: includes/class-visionati-media.php:671
-#: includes/class-visionati-woo.php:469
+#: includes/class-visionati-media.php:756
+#: includes/class-visionati-woo.php:576
 msgid "Results"
 msgstr ""
 
-#: includes/class-visionati-media.php:704
-msgid "No description returned from the API."
-msgstr ""
-
-#: includes/class-visionati-woo.php:72
+#: includes/class-visionati-woo.php:95
 msgid "Set a product image to generate descriptions."
 msgstr ""
 
-#: includes/class-visionati-woo.php:76
+#: includes/class-visionati-woo.php:99
 msgid "Generate short and long product descriptions from the featured image."
 msgstr ""
 
-#: includes/class-visionati-woo.php:80
+#: includes/class-visionati-woo.php:103
 msgid "Generate Descriptions"
 msgstr ""
 
-#: includes/class-visionati-woo.php:85
+#: includes/class-visionati-woo.php:108
 msgid "Preview"
 msgstr ""
 
-#: includes/class-visionati-woo.php:87
+#: includes/class-visionati-woo.php:110
 msgid "Short description:"
 msgstr ""
 
-#: includes/class-visionati-woo.php:91
+#: includes/class-visionati-woo.php:118
 msgid "Long description:"
 msgstr ""
 
-#: includes/class-visionati-woo.php:96
+#: includes/class-visionati-woo.php:127
 msgid "Apply to Product"
 msgstr ""
 
-#: includes/class-visionati-woo.php:99
-msgid "Discard"
-msgstr ""
-
-#: includes/class-visionati-woo.php:121
-#: includes/class-visionati-woo.php:161
-#: includes/class-visionati-woo.php:205
+#: includes/class-visionati-woo.php:152
+#: includes/class-visionati-woo.php:202
+#: includes/class-visionati-woo.php:247
 msgid "No product ID provided."
 msgstr ""
 
-#: includes/class-visionati-woo.php:126
-#: includes/class-visionati-woo.php:166
-#: includes/class-visionati-woo.php:212
+#: includes/class-visionati-woo.php:157
+#: includes/class-visionati-woo.php:207
+#: includes/class-visionati-woo.php:254
 msgid "Product not found."
 msgstr ""
 
-#: includes/class-visionati-woo.php:131
+#: includes/class-visionati-woo.php:162
 msgid "Product has no featured image."
 msgstr ""
 
-#: includes/class-visionati-woo.php:170
+#: includes/class-visionati-woo.php:212
 msgid "No descriptions to apply."
 msgstr ""
 
-#: includes/class-visionati-woo.php:223
+#: includes/class-visionati-woo.php:265
 msgid "No featured image."
 msgstr ""
 
-#: includes/class-visionati-woo.php:243
+#: includes/class-visionati-woo.php:285
 msgid "Descriptions already exist."
 msgstr ""
 
-#: includes/class-visionati-woo.php:395
-#: includes/class-visionati-woo.php:415
+#: includes/class-visionati-woo.php:480
+#: includes/class-visionati-woo.php:500
 msgid "Visionati Bulk Descriptions"
 msgstr ""
 
-#: includes/class-visionati-woo.php:396
+#: includes/class-visionati-woo.php:481
 msgid "Bulk Descriptions"
 msgstr ""
 
-#. translators: 1: number of products missing descriptions, 2: total products with images
-#: includes/class-visionati-woo.php:432
-#, php-format
-msgid "%1$d of %2$d products with images are missing descriptions."
+#: includes/class-visionati-woo.php:527
+msgid "Product statuses to include"
 msgstr ""
 
-#: includes/class-visionati-woo.php:486
+#: includes/class-visionati-woo.php:530
+msgid "Published"
+msgstr ""
+
+#: includes/class-visionati-woo.php:534
+msgid "Draft"
+msgstr ""
+
+#: includes/class-visionati-woo.php:538
+msgid "Pending"
+msgstr ""
+
+#: includes/class-visionati-woo.php:542
+msgid "Private"
+msgstr ""
+
+#: includes/class-visionati-woo.php:593
 msgid "Generate descriptions with Visionati"
 msgstr ""
 
 #. translators: %d: number of products processed
-#: includes/class-visionati-woo.php:562
+#: includes/class-visionati-woo.php:669
 #, php-format
 msgid "%d product updated."
 msgid_plural "%d products updated."
@@ -645,7 +720,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: error message
-#: includes/class-visionati-woo.php:784
+#: includes/class-visionati-woo.php:931
 #, php-format
 msgid "Failed to save product: %s"
 msgstr ""

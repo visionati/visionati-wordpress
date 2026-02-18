@@ -475,30 +475,35 @@ class Visionati_API {
 					continue;
 				}
 
-				// Still processing.
-				if ( isset( $decoded['status'] ) && 'processing' === $decoded['status'] ) {
-					continue;
-				}
-
-				// Results are ready.
-				if ( ! empty( $decoded['all']['assets'] ) ) {
-					$results[ $key ] = $decoded;
+				// Done: results are ready.
+				if ( isset( $decoded['status'] ) && 'completed' === $decoded['status'] ) {
+					if ( ! empty( $decoded['all']['assets'] ) ) {
+						$results[ $key ] = $decoded;
+					} else {
+						$errors = ! empty( $decoded['all']['errors'] ) ? implode( ', ', $decoded['all']['errors'] ) : '';
+						$results[ $key ] = new WP_Error(
+							'visionati_no_results',
+							! empty( $errors )
+								? sprintf( __( 'Analysis returned no results: %s', 'visionati' ), $errors )
+								: __( 'Analysis returned no results.', 'visionati' )
+						);
+					}
 					unset( $pending[ $key ] );
 					continue;
 				}
 
-				// Response exists but has no assets.
-				if ( isset( $decoded['all'] ) && empty( $decoded['all']['assets'] ) ) {
-					$errors = ! empty( $decoded['all']['errors'] ) ? implode( ', ', $decoded['all']['errors'] ) : '';
-					$results[ $key ] = new WP_Error(
-						'visionati_no_results',
-						! empty( $errors )
-							? sprintf( __( 'Analysis returned no results: %s', 'visionati' ), $errors )
-							: __( 'Analysis returned no results.', 'visionati' )
-					);
-					unset( $pending[ $key ] );
+				// Still waiting: keep polling.
+				if ( isset( $decoded['status'] ) && in_array( $decoded['status'], array( 'queued', 'processing' ), true ) ) {
 					continue;
 				}
+
+				// Unexpected response: treat as error.
+				$results[ $key ] = new WP_Error(
+					'visionati_unexpected_response',
+					__( 'Unexpected API response during polling.', 'visionati' )
+				);
+				unset( $pending[ $key ] );
+				continue;
 			}
 
 			// All done.
@@ -583,18 +588,13 @@ class Visionati_API {
 				);
 			}
 
-			// Still processing.
-			if ( isset( $decoded['status'] ) && 'processing' === $decoded['status'] ) {
-				continue;
-			}
+			// Done: results are ready.
+			if ( isset( $decoded['status'] ) && 'completed' === $decoded['status'] ) {
+				if ( ! empty( $decoded['all']['assets'] ) ) {
+					return $decoded;
+				}
 
-			// Results are ready.
-			if ( ! empty( $decoded['all']['assets'] ) ) {
-				return $decoded;
-			}
-
-			// Response exists but has no assets (image may have failed).
-			if ( isset( $decoded['all'] ) && empty( $decoded['all']['assets'] ) ) {
+				// Completed but no assets (image may have failed).
 				$errors = ! empty( $decoded['all']['errors'] ) ? implode( ', ', $decoded['all']['errors'] ) : '';
 				return new WP_Error(
 					'visionati_no_results',
@@ -607,6 +607,17 @@ class Visionati_API {
 						: __( 'Analysis returned no results.', 'visionati' )
 				);
 			}
+
+			// Still waiting: keep polling.
+			if ( isset( $decoded['status'] ) && in_array( $decoded['status'], array( 'queued', 'processing' ), true ) ) {
+				continue;
+			}
+
+			// Unexpected response: treat as error.
+			return new WP_Error(
+				'visionati_unexpected_response',
+				__( 'Unexpected API response during polling.', 'visionati' )
+			);
 		}
 
 		$detail = ! empty( $last_error ) ? ' ' . $last_error : '';

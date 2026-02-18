@@ -4,7 +4,7 @@ Tags: alt text, ai, accessibility, woocommerce, product descriptions
 Requires at least: 6.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,6 +109,9 @@ Over 160 languages. Set your preferred language in the plugin settings and all A
 
 == Changelog ==
 
+= 1.0.1 =
+* Verified compatibility with updated API status lifecycle and 24-hour async response TTL
+
 = 1.0.0 =
 * Initial release
 * Preview before apply: generate a description, review it, then apply or discard
@@ -135,6 +138,9 @@ Over 160 languages. Set your preferred language in the plugin settings and all A
 * Clean uninstall: all plugin data removed from database when plugin is deleted
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Verified compatibility with updated API response handling.
 
 = 1.0.0 =
 Initial release.
