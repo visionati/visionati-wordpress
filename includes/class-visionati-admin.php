@@ -369,7 +369,7 @@ class Visionati_Admin {
 				'resume'          => __( 'Resume', 'visionati' ),
 				'selectFields'    => __( 'Select at least one field to generate.', 'visionati' ),
 				'selectStatuses'  => __( 'Select at least one product status.', 'visionati' ),
-				/* translators: 1: number of products missing descriptions, 2: total number of products with images */
+				/* translators: 1: number of products missing descriptions, 2: total products with images */
 				'wooStats'        => __( '%1$d of %2$d products with images are missing descriptions.', 'visionati' ),
 				/* translators: %d: number of images to process */
 				'confirmBulk'     => __( 'Process %d images?', 'visionati' ),

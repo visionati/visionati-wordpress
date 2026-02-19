@@ -485,7 +485,7 @@ class Visionati_API {
 						$results[ $key ] = new WP_Error(
 							'visionati_no_results',
 							! empty( $errors )
-								/* translators: %s: error details from the API */
+								/* translators: %s: error details */
 								? sprintf( __( 'Analysis returned no results: %s', 'visionati' ), $errors )
 								: __( 'Analysis returned no results.', 'visionati' )
 						);

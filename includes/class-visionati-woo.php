@@ -673,7 +673,7 @@ class Visionati_Woo {
 		}
 		if ( $skipped > 0 ) {
 			$parts[] = sprintf(
-				/* translators: %d: number of products skipped */
+				/* translators: %d: number of items skipped */
 				_n( '%d skipped.', '%d skipped.', $skipped, 'visionati' ),
 				$skipped
 			);

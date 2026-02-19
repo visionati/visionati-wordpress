@@ -648,7 +648,7 @@ class Visionati_Media {
 		}
 		if ( $skipped > 0 ) {
 			$parts[] = sprintf(
-				/* translators: %d: number of images skipped */
+				/* translators: %d: number of items skipped */
 				_n( '%d skipped.', '%d skipped.', $skipped, 'visionati' ),
 				$skipped
 			);

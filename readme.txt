@@ -4,7 +4,7 @@ Tags: alt text, ai, accessibility, woocommerce, product descriptions
 Requires at least: 6.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,6 +109,17 @@ Over 160 languages. Set your preferred language in the plugin settings and all A
 
 == Changelog ==
 
+= 1.0.2 =
+* Fixed all WordPress Plugin Check (PCP) errors and warnings for WordPress.org compliance
+* Added translators comments for all strings with placeholders (required for i18n)
+* Escaped checkbox output using WordPress `checked()` function
+* Added input sanitization for description fields with `sanitize_textarea_field()`
+* Removed raw `$_POST` access from debug logging
+* Removed deprecated `load_plugin_textdomain()` call (handled automatically by WordPress since 4.6)
+* Prefixed global variables in `uninstall.php` per WordPress naming conventions
+* Added `.distignore` for clean plugin distribution packaging
+* Added Plugin Check to Docker development environment for automated compliance testing
+
 = 1.0.1 =
 * Verified compatibility with updated API status lifecycle and 24-hour async response TTL
 
@@ -138,6 +149,9 @@ Over 160 languages. Set your preferred language in the plugin settings and all A
 * Clean uninstall: all plugin data removed from database when plugin is deleted
 
 == Upgrade Notice ==
+
+= 1.0.2 =
+WordPress.org Plugin Check compliance: improved escaping, sanitization, and i18n. No functionality changes.
 
 = 1.0.1 =
 Verified compatibility with updated API response handling.
