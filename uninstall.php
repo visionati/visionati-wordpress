@@ -13,7 +13,7 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 }
 
 // All option keys created by the plugin.
-$options = array(
+$visionati_options = array(
 	'visionati_api_key',
 	'visionati_backends',
 	'visionati_language',
@@ -35,12 +35,13 @@ $options = array(
 	'visionati_debug',
 );
 
-foreach ( $options as $option ) {
-	delete_option( $option );
+foreach ( $visionati_options as $visionati_option ) {
+	delete_option( $visionati_option );
 }
 
 // Clean up any lingering bulk queue transients.
 global $wpdb;
+// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Wildcard transient cleanup has no WP API equivalent.
 $wpdb->query(
 	"DELETE FROM {$wpdb->options}
 	 WHERE option_name LIKE '\_transient\_visionati\_%'

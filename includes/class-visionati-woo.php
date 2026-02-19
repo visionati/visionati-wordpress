@@ -189,13 +189,11 @@ class Visionati_Woo {
 		$long_description  = isset( $_POST['long_description'] ) ? wp_kses_post( wp_unslash( $_POST['long_description'] ) ) : '';
 
 		Visionati_API::debug_log( 'ajax_apply_descriptions: received POST data', array(
-			'product_id'       => $product_id,
-			'short_length'     => mb_strlen( $short_description ),
-			'long_length'      => mb_strlen( $long_description ),
-			'short_empty'      => empty( $short_description ),
-			'long_empty'       => empty( $long_description ),
-			'raw_short_isset'  => isset( $_POST['short_description'] ),
-			'raw_short_length' => isset( $_POST['short_description'] ) ? mb_strlen( $_POST['short_description'] ) : 'N/A',
+			'product_id'   => $product_id,
+			'short_length' => mb_strlen( $short_description ),
+			'long_length'  => mb_strlen( $long_description ),
+			'short_empty'  => empty( $short_description ),
+			'long_empty'   => empty( $long_description ),
 		) );
 
 		if ( ! $product_id ) {
@@ -431,7 +429,7 @@ class Visionati_Woo {
 		$status_placeholders = implode( ', ', array_fill( 0, count( $statuses ), '%s' ) );
 
 		if ( $return_all ) {
-			// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare
 			$ids = $wpdb->get_col(
 				$wpdb->prepare(
 					"SELECT p.ID
@@ -446,7 +444,7 @@ class Visionati_Woo {
 			);
 			// phpcs:enable
 		} else {
-			// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare
 			$ids = $wpdb->get_col(
 				$wpdb->prepare(
 					"SELECT p.ID
@@ -618,7 +616,7 @@ class Visionati_Woo {
 		$sanitized_ids = array_map( 'absint', $post_ids );
 		$id_placeholders = implode( ', ', array_fill( 0, count( $sanitized_ids ), '%d' ) );
 
-		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare
 		$product_ids = $wpdb->get_col(
 			$wpdb->prepare(
 				"SELECT p.ID
@@ -653,13 +651,16 @@ class Visionati_Woo {
 	 * Show a notice after the Products bulk action completes.
 	 */
 	public function bulk_action_notice() {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- reading absint'd query params from redirect URL, not processing form data.
 		if ( ! isset( $_GET['visionati_woo_processed'] ) ) {
 			return;
 		}
 
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- reading absint'd query params from redirect URL, not processing form data.
 		$processed = absint( $_GET['visionati_woo_processed'] );
 		$skipped   = isset( $_GET['visionati_woo_skipped'] ) ? absint( $_GET['visionati_woo_skipped'] ) : 0;
 		$errors    = isset( $_GET['visionati_woo_errors'] ) ? absint( $_GET['visionati_woo_errors'] ) : 0;
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 		$parts = array();
 
@@ -714,7 +715,7 @@ class Visionati_Woo {
 
 		$status_placeholders = implode( ', ', array_fill( 0, count( $statuses ), '%s' ) );
 
-		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare
 		$row = $wpdb->get_row(
 			$wpdb->prepare(
 				"SELECT

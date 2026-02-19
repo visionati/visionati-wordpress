@@ -1,0 +1,22 @@
+# Version control
+.git
+.gitignore
+.gitattributes
+
+# Development files
+docker-compose.yml
+docker-setup.sh
+.distignore
+
+# GitHub / WordPress.org assets (not shipped in plugin zip)
+.wordpress-org
+README.md
+
+# Editor and OS files
+.editorconfig
+.vscode
+.idea
+*.swp
+*.swo
+.DS_Store
+Thumbs.db

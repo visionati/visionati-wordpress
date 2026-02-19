@@ -58,6 +58,26 @@ services:
       - wp_data:/var/www/html
     command: sh /var/www/html/wp-content/plugins/visionati/docker-setup.sh
 
+  plugin-check:
+    image: wordpress:cli
+    depends_on:
+      db:
+        condition: service_healthy
+      wordpress:
+        condition: service_started
+    user: "33:33"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - .:/var/www/html/wp-content/plugins/visionati
+      - wp_data:/var/www/html
+    command: sh -c "wp plugin install plugin-check --activate --quiet 2>/dev/null; wp plugin check visionati --exclude-files=docker-setup.sh,docker-compose.yml,.distignore"
+    profiles:
+      - check
+
 volumes:
   db_data:
   wp_data:

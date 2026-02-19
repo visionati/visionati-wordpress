@@ -123,6 +123,7 @@ class Visionati_API {
 		if ( ! empty( $context ) ) {
 			$log_line .= ' | ' . wp_json_encode( $context, JSON_UNESCAPED_SLASHES );
 		}
+		// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Intentional debug logging, gated by is_debug().
 		error_log( $log_line );
 	}
 
@@ -484,6 +485,7 @@ class Visionati_API {
 						$results[ $key ] = new WP_Error(
 							'visionati_no_results',
 							! empty( $errors )
+								/* translators: %s: error details from the API */
 								? sprintf( __( 'Analysis returned no results: %s', 'visionati' ), $errors )
 								: __( 'Analysis returned no results.', 'visionati' )
 						);

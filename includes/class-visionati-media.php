@@ -174,7 +174,7 @@ class Visionati_Media {
 			Visionati_API::send_json_error( array( 'message' => __( 'Invalid context.', 'visionati' ) ) );
 		}
 
-		$description = isset( $_POST['description'] ) ? wp_unslash( $_POST['description'] ) : '';
+		$description = isset( $_POST['description'] ) ? sanitize_textarea_field( wp_unslash( $_POST['description'] ) ) : '';
 
 		if ( empty( $description ) ) {
 			Visionati_API::send_json_error( array( 'message' => __( 'No description to apply.', 'visionati' ) ) );
@@ -348,7 +348,7 @@ class Visionati_Media {
 		$placeholders = implode( ', ', array_fill( 0, count( $mime_types ), '%s' ) );
 
 		if ( $return_all ) {
-			// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 			$ids = $wpdb->get_col(
 				$wpdb->prepare(
 					"SELECT p.ID
@@ -360,7 +360,7 @@ class Visionati_Media {
 					...$mime_types
 				)
 			);
-			// phpcs:enable
+			// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 			return array_map( 'absint', $ids );
 		}
 
@@ -385,7 +385,8 @@ class Visionati_Media {
 		$needs_alt_join = in_array( 'alt_text', $contexts, true );
 
 		if ( $needs_alt_join ) {
-			// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			// $missing_clause is built from hardcoded string literals above — no user input.
+			// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
 			$ids = $wpdb->get_col(
 				$wpdb->prepare(
 					"SELECT p.ID
@@ -400,9 +401,10 @@ class Visionati_Media {
 					...$mime_types
 				)
 			);
-			// phpcs:enable
+			// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
 		} else {
-			// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			// $missing_clause is built from hardcoded string literals above — no user input.
+			// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
 			$ids = $wpdb->get_col(
 				$wpdb->prepare(
 					"SELECT p.ID
@@ -415,7 +417,7 @@ class Visionati_Media {
 					...$mime_types
 				)
 			);
-			// phpcs:enable
+			// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
 		}
 
 		return array_map( 'absint', $ids );
@@ -494,7 +496,7 @@ class Visionati_Media {
 				$filename,
 				implode( '; ', $errors )
 			);
-			error_log( 'Visionati: ' . $message );
+			error_log( 'Visionati: ' . $message ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 
 			$user_id   = get_current_user_id();
 			if ( $user_id ) {
@@ -625,6 +627,7 @@ class Visionati_Media {
 	 * Show a notice after the Media Library bulk action completes.
 	 */
 	public function bulk_action_notice() {
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only query params from post-redirect-GET.
 		if ( ! isset( $_GET['visionati_processed'] ) ) {
 			return;
 		}
@@ -632,6 +635,7 @@ class Visionati_Media {
 		$processed = absint( $_GET['visionati_processed'] );
 		$skipped   = isset( $_GET['visionati_skipped'] ) ? absint( $_GET['visionati_skipped'] ) : 0;
 		$errors    = isset( $_GET['visionati_errors'] ) ? absint( $_GET['visionati_errors'] ) : 0;
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 		$parts = array();
 
@@ -1051,7 +1055,7 @@ class Visionati_Media {
 		$mime_types    = Visionati_API::get_supported_mime_types();
 		$placeholders  = implode( ', ', array_fill( 0, count( $mime_types ), '%s' ) );
 
-		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$row = $wpdb->get_row(
 			$wpdb->prepare(
 				"SELECT
@@ -1068,7 +1072,7 @@ class Visionati_Media {
 				...$mime_types
 			)
 		);
-		// phpcs:enable
+		// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 		return array(
 			'alt_text'    => $row ? (int) $row->missing_alt : 0,

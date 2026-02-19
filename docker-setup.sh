@@ -27,6 +27,9 @@ wp plugin activate visionati
 echo "Installing and activating WooCommerce..."
 wp plugin install woocommerce --activate
 
+echo "Installing and activating Plugin Check (PCP)..."
+wp plugin install plugin-check --activate
+
 echo "Setting permalinks..."
 wp option update permalink_structure "/%postname%/"
 
@@ -55,6 +58,7 @@ echo "========================================"
 echo "  WordPress ready at http://localhost:9090"
 echo "  Admin: http://localhost:9090/wp-admin"
 echo "  User: admin / Password: admin"
-echo "  WooCommerce + Visionati activated"
+echo "  WooCommerce + Visionati + Plugin Check activated"
+echo "  Run: docker-compose run plugin-check"
 echo "  Debug logging enabled"
 echo "========================================"

@@ -301,9 +301,11 @@ class Visionati_Admin {
 
 		if ( $is_media_page || $is_plugin_page ) {
 			// Load on plugin pages and media/post edit pages.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- reading admin URL params, not processing form data.
 		} elseif ( 'edit.php' === $hook_suffix && isset( $_GET['post_type'] ) && 'product' === $_GET['post_type'] ) {
 			$is_product_page = true;
 		} elseif ( in_array( $hook_suffix, array( 'post.php', 'post-new.php' ), true ) ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- reading admin URL params, not processing form data.
 			$is_product_page = isset( $_GET['post'] ) && 'product' === get_post_type( absint( $_GET['post'] ) );
 		} else {
 			return;
@@ -360,16 +362,22 @@ class Visionati_Admin {
 				'skipped'         => __( 'Skipped', 'visionati' ),
 				'failed'          => __( 'Failed', 'visionati' ),
 				'noCredits'       => __( 'Out of credits. Add more at api.visionati.com to continue.', 'visionati' ),
+				/* translators: %d: number of credits remaining */
 				'creditsRemaining' => __( '%d credits remaining', 'visionati' ),
 				'start'           => __( 'Start', 'visionati' ),
 				'stop'            => __( 'Stop', 'visionati' ),
 				'resume'          => __( 'Resume', 'visionati' ),
 				'selectFields'    => __( 'Select at least one field to generate.', 'visionati' ),
 				'selectStatuses'  => __( 'Select at least one product status.', 'visionati' ),
+				/* translators: 1: number of products missing descriptions, 2: total number of products with images */
 				'wooStats'        => __( '%1$d of %2$d products with images are missing descriptions.', 'visionati' ),
+				/* translators: %d: number of images to process */
 				'confirmBulk'     => __( 'Process %d images?', 'visionati' ),
+				/* translators: %d: number of images to process */
 				'confirmBulkOverwrite' => __( 'Process %d images? Overwrite is enabled — existing content will be replaced.', 'visionati' ),
+				/* translators: %d: number of products to process */
 				'confirmWooBulk'  => __( 'Process %d products?', 'visionati' ),
+				/* translators: %d: number of products to process */
 				'confirmWooBulkOverwrite' => __( 'Process %d products? Overwrite is enabled — existing descriptions will be replaced.', 'visionati' ),
 				'fieldLabels'     => array(
 					'alt_text'    => __( 'Alt Text', 'visionati' ),
@@ -655,11 +663,10 @@ class Visionati_Admin {
 		echo '<fieldset class="visionati-checkbox-group">';
 		echo '<div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">';
 		foreach ( $options as $value => $label ) {
-			$checked = in_array( $value, $fields, true ) ? 'checked' : '';
 			printf(
 				'<label style="white-space:nowrap"><input type="checkbox" name="visionati_auto_generate_fields[]" value="%s" %s /> %s</label>',
 				esc_attr( $value ),
-				$checked,
+				checked( in_array( $value, $fields, true ), true, false ),
 				esc_html( $label )
 			);
 		}
@@ -687,11 +694,10 @@ class Visionati_Admin {
 		echo '<fieldset class="visionati-checkbox-group">';
 		echo '<div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">';
 		foreach ( $options as $value => $label ) {
-			$checked = in_array( $value, $fields, true ) ? 'checked' : '';
 			printf(
 				'<label style="white-space:nowrap"><input type="checkbox" name="visionati_overwrite_fields[]" value="%s" %s /> %s</label>',
 				esc_attr( $value ),
-				$checked,
+				checked( in_array( $value, $fields, true ), true, false ),
 				esc_html( $label )
 			);
 		}

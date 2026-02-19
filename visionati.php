@@ -44,8 +44,6 @@ add_action( 'plugins_loaded', 'visionati_load_woo_integration' );
  * Initialize the plugin.
  */
 function visionati_init() {
-	load_plugin_textdomain( 'visionati', false, dirname( VISIONATI_PLUGIN_BASENAME ) . '/languages' );
-
 	if ( is_admin() ) {
 		new Visionati_Admin();
 	}
@@ -139,6 +137,7 @@ function visionati_deactivate() {
 	// instead of loading every user ID in the system.
 	// Options are preserved so users don't lose settings.
 	global $wpdb;
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Bulk wildcard transient cleanup; no WP API equivalent.
 	$wpdb->query(
 		"DELETE FROM {$wpdb->options}
 		 WHERE option_name LIKE '\_transient\_visionati\_bulk\_queue\_%'
