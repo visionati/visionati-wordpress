@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Visionati
- * Plugin URI:  https://visionati.com
+ * Plugin URI:  https://visionati.com/wordpress/
  * Description: AI-powered image alt text, captions, and product descriptions using multiple AI models.
  * Version:     1.0.2
  * Author:      Visionati
